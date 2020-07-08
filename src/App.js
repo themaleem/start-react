@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import Person from "./Person/Person";
+import Radium from "radium";
 // import UserOutput from "./Person/UserOutput";
 // import UserInput from "./Person/UserInput";
 
@@ -52,13 +53,17 @@ class App extends Component {
   // }
 
   render() {
-    // const style = {
-    //   backgroundColor: "white",
-    //   font: "inherit",
-    //   border: "1px solid blue",
-    //   padding: "8px",
-    //   cursor: "pointer",
-    // };
+    const style = {
+      backgroundColor: "green",
+      color: "white",
+      font: "inherit",
+      border: "1px solid blue",
+      padding: "8px",
+      cursor: "pointer",
+      ":hover": {
+        backgroundColor: "lightgreen",
+      },
+    };
 
     let persons = null;
 
@@ -74,15 +79,31 @@ class App extends Component {
           />
         );
       });
+      style.backgroundColor = "red";
+      style[":hover"] = {
+        backgroundColor: "lightgrey",
+        color: "black",
+      };
     }
 
+    let classes = [];
+    if (this.state.persons.length <= 2) {
+      classes.push("red");
+    }
+    if (this.state.persons.length <= 1) {
+      classes.push("bold");
+    }
     return (
       <div className="App">
-        <button onClick={this.togglePersonsHandler}>Toggle Persons</button>
+        <h1>Welcome to the App</h1>
+        <p className={classes.join(" ")}> e dey work</p>
+        <button style={style} onClick={this.togglePersonsHandler}>
+          Toggle Persons
+        </button>
         <div>{persons}</div>
       </div>
     );
   }
 }
 
-export default App;
+export default Radium(App);
